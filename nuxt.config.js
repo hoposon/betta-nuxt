@@ -22,7 +22,8 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+	  { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+	  { rel: "stylesheet", type: "text/css", href: "bootstrap/bootstrap-grid.min.css" }
     ]
   },
   /*
@@ -56,5 +57,6 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+	extractCSS: true
   }
 }
