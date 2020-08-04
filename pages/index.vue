@@ -1,6 +1,6 @@
 <template>
 	<div class="betta container-fluid">
-		<scrollMenu />
+		<scrollMenu v-if='displayScrollMenu' />
 		<homeMain />
 	</div>
 </template>
@@ -9,9 +9,59 @@
 	import scrollMenu from '../components/menus/scrollMenu.vue';
 	import homeMain from '../components/home/homeMain.vue';
 	export default {
+		data() {
+			return {
+				scrollMenuHandler: undefined,
+				displayScrollMenu: false,
+				lastScrollPosition: 0,
+				newScrollPosition: 0,
+				scrollProcessing: false
+			}
+		},
 		components: {
 			scrollMenu,
 			homeMain			
+		},
+		computed: {
+			
+		},
+		methods: {
+			processScroll(e) {
+				if (process.client) {
+					
+
+					if (!this.scrollProcessing) {
+						this.newScrollPosition = window.scrollY;
+						// window.requestAnimationFrame(function() {
+						// this.evaluateScrollForScrollMenu(newScrollPosition);
+						// this.lastScrollPosition = newScrollPosition;
+						// this.scrollProcessing = false;
+						// });
+						window.requestAnimationFrame(this.evaluateScrollForScrollMenu);
+
+						this.scrollProcessing = true;
+					}
+				}
+			},
+			evaluateScrollForScrollMenu() {
+				if (process.client) {
+					console.log('this.lastScrollPosition >>> ', this.lastScrollPosition)
+					console.log('this.newScrollPosition >>> ', this.newScrollPosition)
+					if (this.newScrollPosition < this.lastScrollPosition && this.newScrollPosition > window.innerHeight) {
+						this.displayScrollMenu = true;
+					} else {
+						this.displayScrollMenu = false;
+					}
+					this.lastScrollPosition = this.newScrollPosition;
+					this.scrollProcessing = false;
+				}
+			}
+		},
+		created() {
+			if (process.client) {
+				this.scrollMenuHandler = this.processScroll.bind(this);
+				window.addEventListener('scroll', this.scrollMenuHandler);
+			}
 		}
 	}
 </script>
@@ -20,7 +70,7 @@
 	@import '~assets/colors.styl'
 
 	/**reset styles */
-	button {
+	body, button {
 		margin: 0;
 		padding: 0;
 		border: 0;
@@ -34,51 +84,16 @@
 		background: none;
 	}
 
-	/**fonts family*/
-	@font-face {
-		font-family: 'Oswald-Bold';
-		font-style: normal;
-		font-weight: 700;
-		src: url('~assets/fonts/Oswald-Bold.ttf') format('ttf');
-	}
-	@font-face {
-		font-family: 'Oswald-ExtraLight';
-		font-style: normal;
-		font-weight: 200;
-		src: url('~assets/fonts/Oswald-Bold.ttf') format('ttf');
-	}
-	@font-face {
-		font-family: 'Oswald-Light';
-		font-style: bold;
-		font-weight: 300;
-		src: url('~assets/fonts/Oswald-Bold.ttf') format('ttf');
-	}
-
-	@font-face {
-		font-family: 'Oswald-Medium';
-		font-style: normal;
-		font-weight: 500;
-		src: url('~assets/fonts/Oswald-Bold.ttf') format('ttf');
-	}
-	@font-face {
-		font-family: 'Oswald-Regular';
-		font-style: normal;
-		font-weight: 400;
-		src: url('~assets/fonts/Oswald-Bold.ttf') format('ttf');
-	}
-	@font-face {
-		font-family: 'Oswald-SemiBold';
-		font-style: bold;
-		font-weight: 600;
-		src: url('~assets/fonts/Oswald-Bold.ttf') format('ttf');
-	}
-
 	.betta
-		font-family 'Oswald-Light', "MS UI Gothic", sans-serif
-		font-weight 300
+		font-family 'Oswald-ExtraLight', "MS UI Gothic", sans-serif
+		font-weight 200
 
 
 		/**main blocks */
+		&.container-fluid
+			padding-right 0
+			padding-left 0
+
 		.page-container
 			width 100%
 			min-height 150vh
@@ -88,13 +103,13 @@
 			font-size 50px
 			font-weight 300
 
-		.-t45-lt
+		.-t45-xlt
 			font-size 45px !important
 			font-weight 300 !important
 
-		.-t35-lt
+		.-t35-xlt
 			font-size 35px !important
-			font-weight 300 !important
+			font-weight 200 !important
 
 		/**buttons and links */
 		.btn
@@ -132,31 +147,37 @@
 					box-shadow none
 					cursor default
 
+		.link
+			color white
+			font-size inherit
+			text-decoration none
+			cursor pointer
+			text-align left
+			white-space nowrap
+			display inline-block
+			line-height 1.1
+			border-bottom 1px solid white
+			&:hover
+				color #EE4C7C
+				//text-decoration none
+				border-bottom none
+			&.-purple
+				color #9A1750
+
+		button.link
+			background transparent
 		a.btn
 			display inline-block
 			text-decoration none
 
-		.link
-			color purple
-			font-size inherit
-			text-decoration underline
-			cursor pointer
-			text-align left
-			white-space nowrap
-			&:hover
-				color pink
-				text-decoration none
-			&.-disabled
-				color: gray
-				text-decoration none
-				&:hover
-					color gray
-					cursor default
-			button.link
-				background transparent
-
 		/**font modifiers */
 		.-white
 			color white
+
+		/**modifiers */
+
+		/**widths */
+		.-w-100
+			width 100% !important
 	
 </style>

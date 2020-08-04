@@ -1,0 +1,48 @@
+/**fonts*/
+@font-face {
+	font-family: "Oswald-Bold";
+	font-weight: 700;
+	font-style: normal;
+	src: url("Oswald-Bold.woff") format("woff"), /* Modern Browsers */
+	  url("Oswald-Bold.woff2") format("woff2"); /* Modern Browsers */
+}
+
+@font-face {
+	font-family: "Oswald-ExtraLight";
+	font-weight: 200;
+	font-style: normal;  
+	src: url("Oswald-ExtraLight.woff") format("woff"), /* Modern Browsers */
+	  url("Oswald-ExtraLight.woff2") format("woff2"); /* Modern Browsers */
+}
+
+@font-face {
+	font-family: "Oswald-Light";
+	font-weight: 300;
+	font-style: normal;  
+	src: url("Oswald-Light.woff") format("woff"),
+	  url("Oswald-Light.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Oswald-Medium";
+	font-weight: 500;
+	font-style: normal;
+	src: url("Oswald-Medium.woff") format("woff"), /* Modern Browsers */
+	  url("Oswald-Medium.woff2") format("woff2"); /* Modern Browsers */
+}
+
+@font-face {
+	font-family: "Oswald-Regular";
+	font-weight: 400;
+	font-style: normal;
+	src: url("Oswald-Regular.woff") format("woff"), /* Modern Browsers */
+	  url("Oswald-Regular.woff2") format("woff2"); /* Modern Browsers */
+}
+
+@font-face {
+	font-family: "Oswald-SemiBold";
+	font-weight: 600;
+	font-style: normal;
+	src: url("Oswald-SemiBold.woff") format("woff"), /* Modern Browsers */
+	  url("Oswald-SemiBold.woff2") format("woff2"); /* Modern Browsers */
+}

@@ -1,17 +1,18 @@
 <template>
-	<div class="scroll-menu d-flex justify-content-center align-items-center">
-		<button class="link -white -t45-lt">Menu</button>
+	<div class="scroll-menu d-flex -w-100 justify-content-center align-items-center">
+		<button class="link -t35-xlt">Menu</button>
 	</div>
 </template>
 
 <script>
-	export default {
-		
+	export default {	
 	}
 </script>
 
 <style lang="stylus">
 	.scroll-menu
+		position fixed
 		background-color rgb(0,0,0)
-		min-height 50px
+		min-height 80px
+
 </style>
