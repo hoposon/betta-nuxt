@@ -13,6 +13,8 @@
 	.scroll-menu
 		position fixed
 		background-color rgb(0,0,0)
-		min-height 80px
+		// padding 15px 0
+		z-index 10
+		overflow hidden
 
 </style>
