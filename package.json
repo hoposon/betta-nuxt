@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@directus/sdk-js": "^6.2.1",
     "nuxt": "^2.14.0"
   },
   "devDependencies": {

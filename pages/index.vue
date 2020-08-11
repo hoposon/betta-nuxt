@@ -6,7 +6,7 @@
 			v-on:after-enter="afterEnter"
 			v-on:leave="leave"
 		>
-			<scrollMenu v-if='displayScrollMenu' />
+			<scrollMenu v-if='displayScrollMenu' :scrollMenu='scrollMenu' />
 		</transition>
 		<homeMain />
 	</div>
@@ -18,6 +18,8 @@
 	import scrollMenu from '../components/menus/scrollMenu.vue';
 	import homeMain from '../components/home/homeMain.vue';
 	export default {
+		// middleware: 'loadCMSData',
+		layout: 'default',
 		data() {
 			return {
 				scrollMenuHandler: undefined,
@@ -33,7 +35,8 @@
 				displayScrollMenu: state => state.scrolling.displayScrollMenu,
 				lastScrollPosition: state => state.scrolling.lastScrollPosition,
 				newScrollPosition: state => state.scrolling.newScrollPosition,
-				scrollProcessing: state => state.scrolling.scrollProcessing
+				scrollProcessing: state => state.scrolling.scrollProcessing,
+				scrollMenu: state => state.menus
 			})
 		},
 		methods: {
