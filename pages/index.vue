@@ -2,13 +2,24 @@
 	<div class="betta container-fluid">
 		<transition
 			name='showHide'
-			v-on:enter="enter"
+			v-on:enter="enterScroll"
 			v-on:after-enter="afterEnter"
-			v-on:leave="leave"
+			v-on:leave="leaveScroll"
 		>
-			<scrollMenu v-if='displayScrollMenu' :scrollMenu='scrollMenu' />
+			<scrollMenu v-if='displayScrollMenu && !displayFullMenu' />
 		</transition>
+		<transition
+			name='showHide'
+			v-on:enter="enterMain"
+			v-on:after-enter="afterEnter"
+			v-on:leave="leaveMain"
+		>
+			<fullMenu v-if='displayFullMenu' />
+		</transition>
+
+
 		<homeMain />
+		
 	</div>
 </template>
 
@@ -16,27 +27,38 @@
 	import { mapState, mapMutations } from 'vuex';
 
 	import scrollMenu from '../components/menus/scrollMenu.vue';
+	import fullMenu from '../components/menus/fullMenu.vue';
 	import homeMain from '../components/home/homeMain.vue';
+
 	export default {
-		// middleware: 'loadCMSData',
 		layout: 'default',
 		data() {
 			return {
-				scrollMenuHandler: undefined,
-				scrollMenuHeight: 0
+				scrollHandler: undefined,
+
+				menusHeights: {
+					scrollMenu: 0,
+					fullMenu: 0
+				},
+				menusPaddings: {
+					scrollMenu: 15,
+					fullMenu: 40
+				}
+				
 			}
 		},
 		components: {
 			scrollMenu,
+			fullMenu,
 			homeMain			
 		},
 		computed: {
 			...mapState({
-				displayScrollMenu: state => state.scrolling.displayScrollMenu,
-				lastScrollPosition: state => state.scrolling.lastScrollPosition,
-				newScrollPosition: state => state.scrolling.newScrollPosition,
-				scrollProcessing: state => state.scrolling.scrollProcessing,
-				scrollMenu: state => state.menus
+				displayScrollMenu: state => state.scrollingAndMenus.displayScrollMenu,
+				displayFullMenu: state => state.scrollingAndMenus.displayFullMenu,
+				lastScrollPosition: state => state.scrollingAndMenus.lastScrollPosition,
+				newScrollPosition: state => state.scrollingAndMenus.newScrollPosition,
+				scrollProcessing: state => state.scrollingAndMenus.scrollProcessing
 			})
 		},
 		methods: {
@@ -56,6 +78,7 @@
 			},
 			callScrollFunctions() {
 				this.evaluateScrollForScrollMenu();
+				this.evaluateScrollForFullMenu();
 
 				this.set_lastScrollPosition(this.newScrollPosition);
 				this.set_scrollProcessing(false);
@@ -70,8 +93,23 @@
 					}	
 				}
 			},
+			evaluateScrollForFullMenu() {
+				if (process.client) {
+					// if scrolling up and bellow some limit (eg. bellow home page menu items) -> show scroll menu
+					if (this.newScrollPosition > this.lastScrollPosition) {
+						this.set_displayFullMenu(false);
+					}
+				}
+			},
 			// transition methods
-			enter(element) {
+			enterScroll(element) {
+				this.enter(element, 'scrollMenu')
+			},
+			enterMain(element) {
+				this.enter(element, 'fullMenu')
+			},
+			enter(element, heightId) {
+				// console.log('enter >>>>')
 				const width = getComputedStyle(element).width;
 
 				element.style.width = width;
@@ -79,8 +117,8 @@
 				element.style.visibility = 'hidden';
 				element.style.height = 'auto';
 
-				this.scrollMenuHeight = parseInt(getComputedStyle(element).height.split('p')[0])+30+'px';
-				console.log('this.scrollMenuHeight >>>> ', this.scrollMenuHeight)
+				this.menusHeights[heightId] = parseInt(getComputedStyle(element).height.split('p')[0])+this.menusPaddings[heightId]*2+'px';
+				// console.log(`${heightId} >>>`, this.menusHeights[heightId])
 
 				element.style.width = null;
 				element.style.position = 'fixed';
@@ -97,42 +135,53 @@
 				// painting after setting the `height`
 				// to `0` in the line above.
 				requestAnimationFrame(() => {
-					element.style.height = this.scrollMenuHeight;
-					element.style.paddingTop = '15px';
-					element.style.paddingBottom = '15px';
+					element.style.height = this.menusHeights[heightId];
+					element.style.paddingTop = this.menusPaddings[heightId]+'px';
+					element.style.paddingBottom = this.menusPaddings[heightId]+'px';
 				});
 			},
 			afterEnter(element, done) {
+				// console.log('afterEnter >>>>')
 				element.style.height = 'auto';
 				// element.style.paddingTop = '15px';
 				// element.style.paddingBottom = '15px';
 			},
-			leave(element) {				
-				element.style.height = this.scrollMenuHeight;
+			leaveScroll(element) {
+				this.leave(element, 'scrollMenu')
+			},
+			leaveMain(element) {
+				this.leave(element, 'fullMenu')
+			},
+			leave(element, heightId) {	
+				// console.log('afterEnter >>>>')			
+				element.style.height = this.menusHeights[heightId];
 
 				// Force repaint to make sure the
 				// animation is triggered correctly.
 				getComputedStyle(element).height;
-				// getComputedStyle(element).paddingTop;
+				getComputedStyle(element).paddingTop;
+				getComputedStyle(element).paddingBottom;
 
 				requestAnimationFrame(() => {
 					element.style.height = 0;
 					element.style.paddingTop = 0;
 					element.style.paddingBottom = 0;
 				});
+				// this.menusHeights[heightId] = 0;
 			},
 			...mapMutations({
-				set_displayScrollMenu: 'scrolling/set_displayScrollMenu',
-				set_lastScrollPosition: 'scrolling/set_lastScrollPosition',
-				set_newScrollPosition: 'scrolling/set_newScrollPosition',
-				set_scrollProcessing: 'scrolling/set_scrollProcessing'
+				set_displayScrollMenu: 'scrollingAndMenus/set_displayScrollMenu',
+				set_displayFullMenu: 'scrollingAndMenus/set_displayFullMenu',
+				set_lastScrollPosition: 'scrollingAndMenus/set_lastScrollPosition',
+				set_newScrollPosition: 'scrollingAndMenus/set_newScrollPosition',
+				set_scrollProcessing: 'scrollingAndMenus/set_scrollProcessing'
 			})
 		},
 		created() {
 			if (process.client) {
 				this.set_lastScrollPosition(window.scrollY);
-				this.scrollMenuHandler = this.processScroll.bind(this);
-				window.addEventListener('scroll', this.scrollMenuHandler);
+				this.scrollHandler = this.processScroll.bind(this);
+				window.addEventListener('scroll', this.scrollHandler);
 			}
 		}
 	}
@@ -147,6 +196,7 @@
 
 	.showHide-enter-active,
 	.showHide-leave-active
+		//transition height 30s, padding-top 30s, padding-bottom 30s ease-in-out
 		transition height .3s, padding-top .3s, padding-bottom .3s ease-in-out
 </style>
 
@@ -195,6 +245,10 @@
 			font-size 35px !important
 			font-weight 200 !important
 
+		.-t25-xlt
+			font-size 25px !important
+			font-weight 200 !important
+
 		/**buttons and links */
 		.btn
 			cursor pointer
@@ -239,12 +293,12 @@
 			text-align left
 			white-space nowrap
 			display inline-block
-			line-height 1.1
-			border-bottom 1px solid white
+			//line-height 1.2
+			border-bottom none
 			&:hover
 				color #EE4C7C
-				//text-decoration none
-				border-bottom none
+				//line-height 1.2
+				//border-bottom 1px solid #EE4C7C
 			&.-purple
 				color #9A1750
 
@@ -263,5 +317,7 @@
 		/**widths */
 		.-w-100
 			width 100% !important
+
+		
 	
 </style>

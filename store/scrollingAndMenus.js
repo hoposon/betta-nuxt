@@ -2,7 +2,8 @@ export const state = () => ({
 	displayScrollMenu: false,
 	lastScrollPosition: 0,
 	newScrollPosition: 0,
-	scrollProcessing: false
+	scrollProcessing: false,
+	displayFullMenu: true
 })
 
 export const mutations = {
@@ -17,5 +18,8 @@ export const mutations = {
 	},
 	set_scrollProcessing(state, value) {
 		state.scrollProcessing = value;
+	},
+	set_displayFullMenu(state, value) {
+		state.displayFullMenu = value;
 	}
 }
