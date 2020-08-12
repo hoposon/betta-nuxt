@@ -12,6 +12,10 @@
 			</div>
 			<div class="full-menu-minor d-flex flex-column align-self-start">
 				<button v-for='menuItem in minorMenu' :key='menuItem.pageId' class="link -t25-xlt" @click='goToPage(menuItem.pageHash)'>{{menuItem.pageName}}</button>
+				<div class="d-flex mt-4">
+					<button class="social-icon icon-instagram mr-3"></button>
+					<button class="social-icon icon-facebook"></button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -77,4 +81,14 @@
 			cursor pointer
 			min-width 20px
 			min-height 20px
+
+	.social-icon
+		cursor pointer
+		background-size cover
+		min-width 30px
+		min-height 30px
+		&:hover
+			background-size cover
+			min-width 30px
+			min-height 30px
 </style>
