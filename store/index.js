@@ -16,6 +16,29 @@ function parseCMSMenusData(menusObj) {
 	});
 	return parsedMenus;
 }
+function parsePages(pagesObj) {
+	let parsedPages = {};
+	pagesObj.data.forEach(page => {
+		parsedPages[page.page_hash] = {
+			"id": page.id,
+			"status": page.status,
+			"main_heading": page.main_heading,
+			"page_desc": page.page_desc,
+			"page_name": page.page_name,
+			"page_hash": page.page_hash,
+			"background_pic_lg_url": page.background_pic_lg.data.full_url,
+			"background_pic_lg_data": {
+				tags: page.background_pic_lg.data.tags
+			},
+			"background_pic_mb_url": page.background_pic_mb.data.full_url,
+			"background_pic_mb_data": {
+				tags: page.background_pic_mb.data.tags
+			}
+		}
+	})
+
+	return parsedPages;
+}
 
 export const state = () => ({
 	menus: {},
@@ -47,10 +70,14 @@ export const actions = {
 			
 			let results = await Promise.all([
 				client.api.get("/items/menus?fields=*.*.*"),
+				client.api.get("/items/pages?fields=*.*")
 			]);
 
 			let parsedMenuData = parseCMSMenusData(results[0]);
-			commit('set_menus', parsedMenuData)
+			commit('set_menus', parsedMenuData);
+
+			let parsedPagesData = parsePages(results[1]);
+			commit('set_pages', parsedPagesData);
 			
 		} catch(e) {
 			console.log('exception >>>', e)

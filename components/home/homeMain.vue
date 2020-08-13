@@ -1,5 +1,5 @@
 <template>
-	<div id="home-page" class="page-container">
+	<div id="home-page" class="home-page page-container">
 		<div class="home-control d-flex -w-100">
 			<button class="brand-logo img-logo" @click='goToPage("home")'></button>
 			<div class="home-menu ml-auto -t35-xlt d-flex flex-column">
@@ -26,7 +26,8 @@
 				return (this.menus['home-menu'] && this.menus['home-menu'].items && this.menus['home-menu'].items) || [];
 			},
 			...mapState([
-				'menus'
+				'menus',
+				'pages'
 			])
 		},
 		methods: {
@@ -45,6 +46,9 @@
 </script>
 
 <style lang="stylus">
+	// .home-page
+		// background-image url()
+
 	.home-control
 		padding-top 170px
 
