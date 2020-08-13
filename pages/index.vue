@@ -300,7 +300,11 @@
 				//line-height 1.2
 				//border-bottom 1px solid #EE4C7C
 			&.-purple
-				color #9A1750
+				&:hover
+					color #EE4C7C
+			&.-dark
+				&:hover
+					color #EE4C7C
 
 		button.link
 			background transparent
@@ -318,6 +322,11 @@
 		.-w-100
 			width 100% !important
 
+		/**fonts */
+		.-dark
+			color #46333B
+		.-purple
+			color #9A1750
 		
 	
 </style>

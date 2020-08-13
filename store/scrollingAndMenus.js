@@ -3,7 +3,7 @@ export const state = () => ({
 	lastScrollPosition: 0,
 	newScrollPosition: 0,
 	scrollProcessing: false,
-	displayFullMenu: true
+	displayFullMenu: false
 })
 
 export const mutations = {

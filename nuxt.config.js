@@ -23,7 +23,6 @@ export default {
     ],
     link: [
 	  { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-	  //{ rel: "stylesheet", type: "text/css", href: "fonts/fonts.css" },
 	  { rel: "stylesheet", type: "text/css", href: "bootstrap/bootstrap-grid.min.css" }
     ]
   },
@@ -32,7 +31,8 @@ export default {
   */
   css: [
 	{src: "~/assets/fonts/fonts.css", lang: 'css'},
-	{src: "~/assets/images/icons.styl", lang: 'stylus'}
+	{src: "~/assets/images/icons.styl", lang: 'stylus'},
+	{src: "~/assets/images/images.styl", lang: 'stylus'}
   ],
   /*
   ** Plugins to load before mounting the App
