@@ -1,0 +1,9 @@
+const FACEBOOK_LINK = '';
+const INSTAGRAM_LINK = '';
+
+
+
+export {
+	FACEBOOK_LINK,
+	INSTAGRAM_LINK
+}

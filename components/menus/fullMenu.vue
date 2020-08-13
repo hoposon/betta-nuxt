@@ -6,11 +6,11 @@
 			<div class='full-menu-main d-flex align-items-center'>
 				
 				<div class="full-menu-main__items">
-					<button v-for='menuItem in mainMenu' :key='menuItem.pageId' class="link -t35-xlt px-2" @click='goToPage(menuItem.pageHash)'>{{menuItem.pageName}}</button>
+					<button v-for='menuItem in mainMenu' :key='menuItem.pageId' class="link -white -t35-xlt px-2" @click='goToPage(menuItem.pageHash)'>{{menuItem.pageName}}</button>
 				</div>
 			</div>
 			<div class="full-menu-minor d-flex flex-column align-self-start">
-				<button v-for='menuItem in minorMenu' :key='menuItem.pageId' class="link -t25-xlt" @click='goToPage(menuItem.pageHash)'>{{menuItem.pageName}}</button>
+				<button v-for='menuItem in minorMenu' :key='menuItem.pageId' class="link -white -t25-xlt" @click='goToPage(menuItem.pageHash)'>{{menuItem.pageName}}</button>
 				<div class="d-flex mt-4">
 					<button class="social-icon icon-instagram mr-3"></button>
 					<button class="social-icon icon-facebook"></button>

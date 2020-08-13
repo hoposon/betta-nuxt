@@ -18,21 +18,22 @@ function parseCMSMenusData(menusObj) {
 }
 function parsePages(pagesObj) {
 	let parsedPages = {};
+	// console.log('pagesObj >>>> ', pagesObj.data)
 	pagesObj.data.forEach(page => {
 		parsedPages[page.page_hash] = {
 			"id": page.id,
 			"status": page.status,
-			"main_heading": page.main_heading,
-			"page_desc": page.page_desc,
-			"page_name": page.page_name,
-			"page_hash": page.page_hash,
-			"background_pic_lg_url": page.background_pic_lg.data.full_url,
+			"mainHeading": page.main_heading,
+			"pageDesc": page.page_desc,
+			"pageName": page.page_name,
+			"pageHash": page.page_hash,
+			"background_pic_lg_url": page.background_pic_lg && page.background_pic_lg.data.full_url || null,
 			"background_pic_lg_data": {
-				tags: page.background_pic_lg.data.tags
+				tags: page.background_pic_lg && page.background_pic_lg.data.tags || null
 			},
-			"background_pic_mb_url": page.background_pic_mb.data.full_url,
+			"background_pic_mb_url": page.background_pic_mb && page.background_pic_mb.data.full_url || null,
 			"background_pic_mb_data": {
-				tags: page.background_pic_mb.data.tags
+				tags: page.background_pic_mb && page.background_pic_mb.data.tags || null
 			}
 		}
 	})
@@ -76,6 +77,7 @@ export const actions = {
 			let parsedMenuData = parseCMSMenusData(results[0]);
 			commit('set_menus', parsedMenuData);
 
+			// console.log('pages >>>> ', results[1])
 			let parsedPagesData = parsePages(results[1]);
 			commit('set_pages', parsedPagesData);
 			

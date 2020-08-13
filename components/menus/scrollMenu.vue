@@ -1,6 +1,6 @@
 <template>
 	<div class="scroll-menu d-flex -w-100 justify-content-center align-items-center">
-		<button class="link -t35-xlt" @click='showFullMenu()'>{{menuItem}}</button>
+		<button class="link -white -t35-xlt" @click='showFullMenu()'>{{menuItem}}</button>
 	</div>
 </template>
 

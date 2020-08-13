@@ -19,6 +19,7 @@
 
 
 		<homeMain />
+		<designerMain />
 		
 	</div>
 </template>
@@ -29,6 +30,7 @@
 	import scrollMenu from '../components/menus/scrollMenu.vue';
 	import fullMenu from '../components/menus/fullMenu.vue';
 	import homeMain from '../components/home/homeMain.vue';
+	import designerMain from '../components/designer/designerMain.vue';
 
 	export default {
 		layout: 'default',
@@ -50,7 +52,8 @@
 		components: {
 			scrollMenu,
 			fullMenu,
-			homeMain			
+			homeMain,
+			designerMain		
 		},
 		computed: {
 			...mapState({
@@ -214,8 +217,16 @@
 		vertical-align: baseline;
 	}
 
+	body {
+		color #46333B
+	}
+
 	button {
 		background: none;
+	}
+
+	p {
+		text-align justify
 	}
 
 	.betta
@@ -230,16 +241,20 @@
 
 		.page-container
 			width 100%
-			min-height 150vh
 
 		/**fonts */
 		.h1
 			font-size 50px
 			font-weight 300
+			color #9A1750
 
 		.-t45-xlt
 			font-size 45px !important
-			font-weight 300 !important
+			font-weight 200 !important
+
+		.-t40-xlt
+			font-size 40px !important
+			font-weight 200 !important
 
 		.-t35-xlt
 			font-size 35px !important
@@ -286,7 +301,6 @@
 					cursor default
 
 		.link
-			color white
 			font-size inherit
 			text-decoration none
 			cursor pointer
@@ -299,6 +313,9 @@
 				color #EE4C7C
 				//line-height 1.2
 				//border-bottom 1px solid #EE4C7C
+			&.-white
+				&:hover
+					color #EE4C7C
 			&.-purple
 				&:hover
 					color #EE4C7C
@@ -323,6 +340,8 @@
 			width 100% !important
 
 		/**fonts */
+		.-white
+			color white
 		.-dark
 			color #46333B
 		.-purple

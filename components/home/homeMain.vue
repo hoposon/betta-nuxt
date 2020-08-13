@@ -1,5 +1,5 @@
 <template>
-	<div id="home-page" class="home-page page-container">
+	<div :id='page.pageHash' class="home-page page-container" ref='home-page' :style='pageBackground'>
 		<div class="home-control d-flex -w-100">
 			<button class="brand-logo img-logo" @click='goToPage("home")'></button>
 			<div class="home-menu ml-auto -t35-xlt d-flex flex-column">
@@ -21,9 +21,30 @@
 
 	export default {
 		computed: {
+			pageBackground() {
+				// let element = this.$refs['home-page'];
+				let picture = '';
+				let screenWidth = false;
+				if (process.client) {
+					screenWidth = window.screen.availWidth
+				}
+				if (screenWidth && screenWidth < 1000) {
+					picture = this.pages['home'].background_pic_mb_url;
+				} else {
+					picture = this.pages['home'].background_pic_lg_url;
+				}
+				return {
+					'background-image': `url(${picture})`,
+					'background-repeat': 'no-repeat',
+					'background-size': 'cover'
+				}
+			},
 			homeMenu() {
 				// console.log('home menu >>>> ', this.menus['home-menu'])
 				return (this.menus['home-menu'] && this.menus['home-menu'].items && this.menus['home-menu'].items) || [];
+			},
+			page() {
+				return this.pages['home'];
 			},
 			...mapState([
 				'menus',
@@ -46,8 +67,8 @@
 </script>
 
 <style lang="stylus">
-	// .home-page
-		// background-image url()
+	.home-page
+		min-height 180vh
 
 	.home-control
 		padding-top 170px
