@@ -1,5 +1,5 @@
 <template>
-	<div class="news-item mb-5 p-2">
+	<div class="news-item mb-5 p-2" :class="position">
 		<h2 class="h2 m-0 pb-2 news-item__border">{{ heading }}</h2>
 		<extendableRead 
 			:elementId='elementId' 
@@ -23,14 +23,18 @@
 			'heading',
 			'text',
 			'src',
-			'id'
+			'id',
+			'index'
 		],
 		components: {
 			extendableRead
 		},
-		commputed: {
+		computed: {
 			elementId() {
 				return `news-${this.id}`
+			},
+			position() {
+				return this.index%2 === 0 ? 'align-self-start' : 'align-self-end'
 			}
 		}
 	}
@@ -39,6 +43,7 @@
 <style lang="stylus">
 	.news-item
 		max-width 70%
+		// max-height 500px
 		color #46333B
 		background-color #F2E8ED
 

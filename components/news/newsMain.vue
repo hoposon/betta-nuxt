@@ -14,7 +14,7 @@
 			<h1 class="h1 pl-5">{{ page.mainHeading }}</h1>
 		</div>
 		<div class="news-container col-11 d-flex flex-column">
-			<newsRow v-for='oneNews in news' :key='oneNews.id' :heading="oneNews.heading" :text="oneNews.description" :src='oneNews[`image-${imageSrc}`]' :id='oneNews.id' />
+			<newsRow v-for='(oneNews, index) in news' :key='oneNews.id' :heading="oneNews.heading" :text="oneNews.description" :src='oneNews[`image-${imageSrc}`]' :id='oneNews.id' :index='index'/>
 		</div>
 	</div>
 </template>
@@ -68,6 +68,8 @@
 
 	.news-container
 		background-color #9A1750
-		padding 50px
+		padding 80px
+		.news-item:last-child
+			margin-bottom 0 !important
 
 </style>
