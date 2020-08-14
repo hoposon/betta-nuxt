@@ -18,7 +18,7 @@ function parseCMSMenusData(menusObj) {
 }
 function parsePages(pagesObj) {
 	let parsedPages = {};
-	// console.log('pagesObj >>>> ', pagesObj.data)
+	// console.log('pagesObj >>>> ', JSON.stringify(pagesObj))
 	pagesObj.data.forEach(page => {
 		parsedPages[page.page_hash] = {
 			"id": page.id,
@@ -36,14 +36,47 @@ function parsePages(pagesObj) {
 				tags: page.background_pic_mb && page.background_pic_mb.data.tags || null
 			}
 		}
+		parsedPages[page.page_hash].imagesLg = {};
+		page.images_lg.forEach(image => {
+			// console.log(JSON.stringify(image))
+			parsedPages[page.page_hash].imagesLg[image.directus_files_id.title] = {
+				title: image.directus_files_id.title,
+				url: image.directus_files_id.data.full_url,
+				tags: image.directus_files_id.data.tags
+			}
+		});
+		parsedPages[page.page_hash].imagesMb = {};
+		page.images_mb.forEach(image => {
+			parsedPages[page.page_hash].imagesMb[image.directus_files_id.title] = {
+				title: image.directus_files_id.title,
+				url: image.directus_files_id.data.full_url,
+				tags: image.directus_files_id.data.tags
+			}
+		})
 	})
-
+	// console.log(JSON.stringify(parsedPages))
 	return parsedPages;
+}
+
+function parsedNews(newsObj) {
+	let parsedNews = [];
+	// console.log('pagesObj >>>> ', JSON.stringify(pagesObj))
+	newsObj.data.forEach(news => {
+		let tempNews = {
+			heading: news.heading,
+			description: news.description,
+			imageURL: news.image.data.full_url
+		}
+		parsedNews.push(tempNews)
+	})
+	// console.log(JSON.stringify(parsedPages))
+	return parsedNews;
 }
 
 export const state = () => ({
 	menus: {},
-	pages: {}
+	pages: {},
+	news: {}
 })
 
 export const mutations = {
@@ -52,6 +85,9 @@ export const mutations = {
 	},
 	set_pages(state, data) {
 		state.pages = data;
+	},
+	set_news(state, data) {
+		state.news = data;
 	}
 }
 
@@ -71,7 +107,8 @@ export const actions = {
 			
 			let results = await Promise.all([
 				client.api.get("/items/menus?fields=*.*.*"),
-				client.api.get("/items/pages?fields=*.*")
+				client.api.get("/items/pages?fields=*.*.*"),
+				client.api.get("/items/news?fields=*.*"),
 			]);
 
 			let parsedMenuData = parseCMSMenusData(results[0]);
@@ -80,6 +117,10 @@ export const actions = {
 			// console.log('pages >>>> ', results[1])
 			let parsedPagesData = parsePages(results[1]);
 			commit('set_pages', parsedPagesData);
+
+			// console.log(results[2].data[0]);
+			let parsedNewsData = parsedNews(results[2])
+			commit('set_news', parsedNewsData);
 			
 		} catch(e) {
 			console.log('exception >>>', e)

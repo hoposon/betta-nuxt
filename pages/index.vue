@@ -20,6 +20,7 @@
 
 		<homeMain />
 		<designerMain />
+		<newsMain />
 		
 	</div>
 </template>
@@ -31,6 +32,7 @@
 	import fullMenu from '../components/menus/fullMenu.vue';
 	import homeMain from '../components/home/homeMain.vue';
 	import designerMain from '../components/designer/designerMain.vue';
+	import newsMain from '../components/news/newsMain.vue';
 
 	export default {
 		layout: 'default',
@@ -53,7 +55,8 @@
 			scrollMenu,
 			fullMenu,
 			homeMain,
-			designerMain		
+			designerMain,
+			newsMain	
 		},
 		computed: {
 			...mapState({
@@ -225,9 +228,8 @@
 		background: none;
 	}
 
-	p {
+	.page-text
 		text-align justify
-	}
 
 	.betta
 		font-family 'Oswald-ExtraLight', "MS UI Gothic", sans-serif
@@ -244,8 +246,8 @@
 
 		/**fonts */
 		.h1
-			font-size 50px
-			font-weight 300
+			font-size 60px
+			font-weight 200
 			color #9A1750
 
 		.-t45-xlt
@@ -260,8 +262,16 @@
 			font-size 35px !important
 			font-weight 200 !important
 
+		.-t30-xlt
+			font-size 30px !important
+			font-weight 200 !important
+
 		.-t25-xlt
 			font-size 25px !important
+			font-weight 200 !important
+
+		.-t20-xlt
+			font-size 20px !important
 			font-weight 200 !important
 
 		/**buttons and links */
@@ -339,13 +349,16 @@
 		.-w-100
 			width 100% !important
 
-		/**fonts */
+		/**fonts and text*/
 		.-white
 			color white
 		.-dark
 			color #46333B
 		.-purple
 			color #9A1750
+
+		.-text-align-right
+			text-align right
 		
 	
 </style>
