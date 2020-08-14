@@ -10,10 +10,12 @@
 		props: [
 			'elementId',
 			'limitedHeight',
+			'borderPadding',
 			'text',
 			'textSize',
 			'moreTextSize',
-			'alignment'
+			'alignment',
+			'border'
 		],
 		data() {
 			return {
@@ -31,11 +33,10 @@
 			textStyleClass() {
 				return {
 					...this.textSize,
+					...this.borderPadding,
 					...{
-						'border-right': this.alignment === 'right',
-						'border-left': this.alignment === 'left',
-						'pr-5': this.alignment === 'right',
-						'pl-5': this.alignment === 'left'
+						'border-right': this.alignment === 'right' && this.border,
+						'border-left': this.alignment === 'left' && this.border
 					}
 				}
 			},

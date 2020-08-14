@@ -250,6 +250,11 @@
 			font-weight 200
 			color #9A1750
 
+		.h2
+			font-family 'Oswald-Medium', "MS UI Gothic", sans-serif
+			font-size 40px
+			font-weight 500
+
 		.-t45-xlt
 			font-size 45px !important
 			font-weight 200 !important
@@ -273,6 +278,11 @@
 		.-t20-xlt
 			font-size 20px !important
 			font-weight 200 !important
+
+		.-t20-reg
+			font-family 'Oswald-Regular', "MS UI Gothic", sans-serif
+			font-size 20px !important
+			font-weight 400 !important
 
 		/**buttons and links */
 		.btn
@@ -356,6 +366,8 @@
 			color #46333B
 		.-purple
 			color #9A1750
+		.-brown
+			color #46333B
 
 		.-text-align-right
 			text-align right

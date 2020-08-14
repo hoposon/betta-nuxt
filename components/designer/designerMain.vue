@@ -5,10 +5,12 @@
 			<extendableRead 
 				:elementId='"designerRead"'
 				:limitedHeight='"150px"'
+				:borderPadding='{"pr-5":true}'
 				:text='page.pageDesc'
 				:textSize='{"-t20-xlt": true}'
 				:moreTextSize='{"-t30-xlt": true}'
 				:alignment='"left"'
+				:border='true'
 			/>
 			<div class="pl-5">
 				<a :href="instagram" rel="noopener noreferrer" class="link social-icon icon-instagram mr-3"></a>

@@ -63,9 +63,11 @@ function parsedNews(newsObj) {
 	// console.log('pagesObj >>>> ', JSON.stringify(pagesObj))
 	newsObj.data.forEach(news => {
 		let tempNews = {
+			id: news.id,
 			heading: news.heading,
 			description: news.description,
-			imageURL: news.image.data.full_url
+			'image-lg': news.image_lg && news.image_lg.data.full_url || '',
+			'image-mb': news.image_mb && news.image_mb.data.full_url || ''
 		}
 		parsedNews.push(tempNews)
 	})
