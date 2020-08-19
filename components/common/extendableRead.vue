@@ -1,6 +1,6 @@
 <template>
 	<div :class='textStyleClass' class="col-6 d-flex flex-column">
-		<div :id='elementId' :style='heightStyle' class="page-text colapsible-text" v-html="text"></div>
+		<div :id='elementId' :style='heightStyle' class="page-text colapsible-text" :class='extendableClass' v-html="text"></div>
 		<button class="link" :class='moreStyleClass' @click='moreLess()'>{{ more ? 'Less' : 'More' }}</button>
 	</div>
 </template>
@@ -13,6 +13,7 @@
 			'borderPadding',
 			'text',
 			'textSize',
+			'extendableStyle',
 			'moreTextSize',
 			'alignment',
 			'border'
@@ -39,6 +40,9 @@
 						'border-left': this.alignment === 'left' && this.border
 					}
 				}
+			},
+			extendableClass() {
+				return this.extendableStyle;
 			},
 			moreStyleClass() {
 				return {

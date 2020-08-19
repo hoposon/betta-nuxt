@@ -4,7 +4,7 @@
 			<extendableRead 
 				:elementId='"newsRead"'
 				:limitedHeight='"180px"'
-				:borderPadding='{"pl-5":true}'
+				:borderPadding='{"pr-5":true}'
 				:text='page.pageDesc'
 				:textSize='{"-t25-xlt": true}'
 				:moreTextSize='{"-t35-xlt": true}'

@@ -1,7 +1,7 @@
 <template>
 	<div :id='page.pageHash' class="home-page page-container" ref='home-page' :style='pageBackground'>
 		<div class="home-control d-flex -w-100">
-			<button class="brand-logo img-logo" @click='goToPage("home")'></button>
+			<button class="brand-logo -with-hover img-logo" @click='goToPage("home")'></button>
 			<div class="home-menu ml-auto -t35-xlt d-flex flex-column">
 				<button v-for='menuItem in homeMenu' 
 					:key='menuItem.pageId' 
@@ -83,7 +83,7 @@
 		cursor pointer
 		background-size contain
 		background-repeat no-repeat
-		&:hover
+		&.-with-hover:hover
 			background-size contain
 			background-repeat no-repeat
 </style>

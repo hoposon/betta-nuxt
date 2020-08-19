@@ -21,6 +21,8 @@
 		<homeMain />
 		<designerMain />
 		<newsMain />
+		<brandMain />
+		<collectionsMain />
 		
 	</div>
 </template>
@@ -33,6 +35,8 @@
 	import homeMain from '../components/home/homeMain.vue';
 	import designerMain from '../components/designer/designerMain.vue';
 	import newsMain from '../components/news/newsMain.vue';
+	import brandMain from '../components/brand/brandMain.vue';
+	import collectionsMain from '../components/collections/collectionsMain.vue';
 
 	export default {
 		layout: 'default',
@@ -56,7 +60,9 @@
 			fullMenu,
 			homeMain,
 			designerMain,
-			newsMain	
+			newsMain,
+			brandMain,
+			collectionsMain
 		},
 		computed: {
 			...mapState({
@@ -366,11 +372,13 @@
 			color #46333B
 		.-purple
 			color #9A1750
-		.-brown
-			color #46333B
+		.-pink
+			color #EE4C7C
 
 		.-text-align-right
 			text-align right
+		.-text-align-center
+			text-align center
 		
 	
 </style>

@@ -5,7 +5,7 @@
 			<extendableRead 
 				:elementId='"designerRead"'
 				:limitedHeight='"150px"'
-				:borderPadding='{"pr-5":true}'
+				:borderPadding='{"pl-5":true}'
 				:text='page.pageDesc'
 				:textSize='{"-t20-xlt": true}'
 				:moreTextSize='{"-t30-xlt": true}'
