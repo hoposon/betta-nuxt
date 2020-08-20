@@ -14,6 +14,10 @@
 				:border='true'
 			/>
 		</div>
+		<div class="d-flex">
+			<button v-for='(coll, index) in collections' :key='index' @click='setCollection(index)' class="link -purple">{{coll.collectionName}}</button>
+		</div>
+		<imagesGallery :images='collections[currentIndex].images' />
 	</div>
 </template>
 
@@ -21,20 +25,29 @@
 	import { mapState } from 'vuex';
 
 	import extendableRead from '../common/extendableRead.vue';
+	import imagesGallery from './imgesGallery.vue';
 
 	export default {
 		components: {
-			extendableRead
+			extendableRead,
+			imagesGallery
 		},
 		data() {
-			return {			
+			return {
+				currentIndex: 0		
 			}
 		},
 		computed: {
 			...mapState({
-				page: store => store.pages['collections']
+				page: store => store.pages['collections'],
+				collections: store => store.collections
 			})
 		},
+		methods: {
+			setCollection(index) {
+				this.currentIndex = index;
+			}
+		}
 	}
 </script>
 

@@ -75,10 +75,36 @@ function parsedNews(newsObj) {
 	return parsedNews;
 }
 
+function parseKolekce(kolekceObj) {
+	// console.log(results[3].data[0].collection_images[0].image_id.data);
+	let parsedKolekce = [];
+	kolekceObj.data.forEach(kol => {
+		let tempCollection = {
+			collectionName: kol.collection_name,
+			priority: kol.collection_priority,
+			images: []
+		}
+		kol.collection_images.forEach(img => {
+			tempCollection.images.push(
+				img.image_id.data.full_url
+			)
+		})
+		parsedKolekce.push(tempCollection);
+	})
+
+	//sort collections
+	parsedKolekce.sort((a,b) => {
+		return a.priority - b.priority;
+	})
+
+	return parsedKolekce;
+}
+
 export const state = () => ({
 	menus: {},
 	pages: {},
-	news: {}
+	news: {},
+	collections: []
 })
 
 export const mutations = {
@@ -90,6 +116,9 @@ export const mutations = {
 	},
 	set_news(state, data) {
 		state.news = data;
+	},
+	set_collections(state, data) {
+		state.collections = data;
 	}
 }
 
@@ -111,6 +140,7 @@ export const actions = {
 				client.api.get("/items/menus?fields=*.*.*"),
 				client.api.get("/items/pages?fields=*.*.*"),
 				client.api.get("/items/news?fields=*.*"),
+				client.api.get("/items/kolekce?fields=*.*.*"),
 			]);
 
 			let parsedMenuData = parseCMSMenusData(results[0]);
@@ -123,6 +153,11 @@ export const actions = {
 			// console.log(results[2].data[0]);
 			let parsedNewsData = parsedNews(results[2])
 			commit('set_news', parsedNewsData);
+
+			// console.log(results[3].data[0].collection_images[0].image_id.data);
+			let parsedCollections = parseKolekce(results[3])
+			commit('set_collections', parsedCollections);
+			
 			
 		} catch(e) {
 			console.log('exception >>>', e)
