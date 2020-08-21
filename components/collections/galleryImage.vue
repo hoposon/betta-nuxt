@@ -1,6 +1,6 @@
 <template>
 	<!-- <div>{{imgSrc}}</div> -->
-	<img :src='imgSrc' alt='' />
+	<img :src='imgSrc' alt='' class="gallery-image" />
 </template>
 
 <script>
@@ -10,3 +10,9 @@
 		]
 	}
 </script>
+
+<style lang="stylus" scoped>
+	.gallery-image
+		height 100vh
+		width auto
+</style>

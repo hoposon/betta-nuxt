@@ -55,12 +55,14 @@
 			goToPage(pageHash) {
 				if (pageHash === 'full-menu') {
 					this.set_displayFullMenu(true);
+					this.set_displayScrollMenu(false);
 				}
 				let element = document.getElementById(pageHash);
 				element && element.scrollIntoView();
 			},
 			...mapMutations({
-				set_displayFullMenu: 'scrollingAndMenus/set_displayFullMenu'
+				set_displayFullMenu: 'scrollingAndMenus/set_displayFullMenu',
+				set_displayScrollMenu: 'scrollingAndMenus/set_displayScrollMenu'
 			})
 		}
 	}
