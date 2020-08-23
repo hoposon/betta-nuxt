@@ -2,7 +2,10 @@
 	<div class='images-gallery'>
 		<galleryImage 
 			v-for='(img, index) in images' :key='index' :imgSrc='img' 
-			:class='imageClass'	
+			:imgLength="imgLength"
+			:index="index"
+			:currIndex="currIndex"
+			v-on:currIndexChange='nextImg($event)'
 		/>
 	</div>	
 </template>
@@ -16,31 +19,22 @@
 		],
 		data() {
 			return {
-				startIndex: 1
+				currIndex: 0
 			}
 		},
 		components: {
 			galleryImage
 		},
 		computed: {
-			imageClass(index) {
-				if (index === this.startIndex) {
-					return {
-						'left-ing': true
-					}
-				} else if (index === this.startIndex+1) {
-					return {
-						'middle-img': true
-					}
-				} else if (index === this.startIndex+2) {
-					return {
-						'right-img': true
-					}
-				} else {
-					return {}
-				}
+			imgLength() {
+				return this.images.length
 			}
-		}
+		},
+		methods: {
+			nextImg(event) {
+				if (event.newCurrIndex !== -1) this.currIndex = event.newCurrIndex;
+			}
+		} 
 	}
 </script>
 
@@ -50,4 +44,20 @@
 		overflow hidden
 		max-width 100%
 		// max-height 100vh
+
+	// .left-img
+	// 	display block
+	// 	order 1
+
+	// .middle-img
+	// 	display block
+	// 	order 2
+
+	// .right-img
+	// 	display block
+	// 	order 3
+
+	// .img-display-none
+	// 	display none
+	
 </style>
