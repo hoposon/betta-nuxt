@@ -15,9 +15,10 @@
 			/>
 		</div>
 		<div class="d-flex">
-			<button v-for='(coll, index) in collections' :key='index' @click='setCollection(index)' class="link -purple">{{coll.collectionName}}</button>
+			<button v-for='(coll, index) in collections' :key='index' @click='setCollection(index)' class="link -purple -t30-xlt" :class="buttonClass(index)">{{coll.collectionName}}</button>
 		</div>
 		<imagesGallery :images='collections[currentIndex].images' />
+		<div style='height:200px'></div>
 	</div>
 </template>
 
@@ -44,6 +45,12 @@
 			})
 		},
 		methods: {
+			buttonClass(index) {
+				// console.log('>>>', index)
+				return {
+					'-active': index == this.currentIndex
+				}
+			},
 			setCollection(index) {
 				this.currentIndex = index;
 			}
@@ -60,5 +67,9 @@
 		width 100%
 		margin-top 150px
 		margin-bottom 150px
+
+	.link
+		&.-active
+			font-weight bold
 
 </style>

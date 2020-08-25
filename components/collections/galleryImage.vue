@@ -1,6 +1,8 @@
 <template>
 	<!-- <div>{{imgSrc}}</div> -->
-	<img :src='imgSrc' alt='' class="gallery-image" :class='imageClass' @click="nextImg()" />
+	<div class='gallery-image__env' :class='imageClass' :style='imageStyle'>
+		<img :src='imgSrc' alt='' class="gallery-image__img" @click="nextImg()" />
+	</div>
 </template>
 
 <script>
@@ -12,6 +14,13 @@
 			'currIndex'
 		],
 		computed: {
+			imageStyle() {
+				if (this.diff === -1 || this.diff === this.middleDiff) {
+					return 'left: 25%'
+				} else {
+					return ''
+				}
+			},
 			imageClass() {
 				if (this.index === this.currIndex) {
 					return {
@@ -30,6 +39,9 @@
 						'img-display-none': true
 					}
 				}
+			},
+			showImg() {
+
 			},
 			diff() {
 				return this.currIndex - this.index;
@@ -67,23 +79,42 @@
 </script>
 
 <style lang="stylus" scoped>
-	.gallery-image
-		height 100vh
-		width auto
+	.gallery-image__env
+		max-width 80%
+		position absolute
+		//overflow hidden
+
+	.gallery-image__img
+		height auto
+		width 100%		
 
 	.left-img
+		max-height 90vh
+		height 90vh
 		display block
-		order 1
+		top 3vh
+		left 15px
 		cursor pointer
+		max-width 32%
 
 	.middle-img
+		max-height 96vh
+		height 96vh
+		vertical-align top
 		display block
-		order 2
+		top 0
+		left 50%
+		box-shadow 0px 9px 20px 20px rgba(70,51,59,0.66)
+		z-index 10000
 
 	.right-img
+		max-height 90vh
+		height 90vh
 		display block
-		order 3
+		top 3vh
+		right 15px
 		cursor pointer
+		max-width 32%
 
 	.img-display-none
 		display none

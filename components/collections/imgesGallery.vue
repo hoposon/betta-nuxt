@@ -41,9 +41,15 @@
 <style lang="stylus" scoped>
 	.images-gallery
 		display flex
-		overflow hidden
 		max-width 100%
-		// max-height 100vh
+		padding 2vh 2vh
+		justify-content center
+		align-items center
+		transition order .9s ease-out
+		overflow hidden
+		position relative
+		width 100%
+		height 96vh
 
 	// .left-img
 	// 	display block
