@@ -45,11 +45,11 @@
 		padding 2vh 2vh
 		justify-content center
 		align-items center
-		transition order .9s ease-out
 		overflow hidden
 		position relative
 		width 100%
 		height 96vh
+		max-height 96vh
 
 	// .left-img
 	// 	display block
