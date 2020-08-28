@@ -85,8 +85,12 @@ function parseKolekce(kolekceObj) {
 			images: []
 		}
 		kol.collection_images.forEach(img => {
-			tempCollection.images.push(
-				img.image_id.data.full_url
+			// console.log('img >>> ', img.image_id)
+			tempCollection.images.push({
+					url: img.image_id.data.full_url,
+					width: img.image_id.width,
+					height: img.image_id.height
+				}
 			)
 		})
 		parsedKolekce.push(tempCollection);

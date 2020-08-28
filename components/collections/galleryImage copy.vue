@@ -1,6 +1,6 @@
 <template>
 	<!-- <div>{{imgSrc}}</div> -->
-	<div :id='"img-"+index' class='gallery-image__wrap' :class='imageClass' :style='imageStyle'>
+	<div class='gallery-image__wrap' :class='imageClass' :style='imageStyle'>
 		<img :src='imgSrc' alt='' class="gallery-image__img" @click="nextImg()" />
 	</div>
 </template>
@@ -11,9 +11,6 @@
 			'imgSrc',
 			'imgLength',
 			'index',
-			'parentWidth',
-			'imgWidth',
-			'imgHeight',
 			'currIndex'
 		],
 		data() {
@@ -24,37 +21,12 @@
 		},
 		computed: {
 			imageStyle() {
-
-				if (process.client) {
-					if (this.index === this.currIndex) {
-						return {
-							'left': 0
-						}		
-					} else if (this.diff === -1 || this.diff === this.middleDiff) {
-						let pr = ((this.parentWidth - this.imgWidth)/2)/this.parentWidth*100;
-						// console.log('middle >>> ', (this.parentWidth - width))
-						console.log('middle >>> ', this.parentWidth)
-						console.log('middle >>> ', this.imgWidth)
-						console.log('middle >>> ', pr)
-						return {
-							'left': `${pr}%`
-						}
-					} else if (this.diff === -2 || this.diff === this.rightDiff) {
-						let pr = (this.parentWidth - this.imgWidth)/this.parentWidth*100;
-						console.log('right >>> ', this.parentWidth)
-						console.log('right >>> ', this.imgWidth)
-						console.log('right >>> ', pr)
-						return {
-							'left': `${pr}%`
-						}
-					} else {
-						let pr = ((this.parentWidth - this.imgWidth)/2)/this.parentWidth*100;
-						return {
-							'left': `${pr}%`
-						}
-					}
-				}
-
+				// if (this.diff === -1 || this.diff === this.middleDiff) {
+				// 	return 'left: 25%'
+				// } else {
+				// 	return ''
+				// }
+				return ''
 			},
 			imageClass() {
 				if (this.index === this.currIndex) {
@@ -121,41 +93,75 @@
 	.gallery-image__wrap
 		position absolute
 		overflow hidden
-		transition top 0.5s linear, bottom 0.5s linear, left 0.5s linear, z-index 0.5s linear, visibility 0.5s linear, opacity 0.5s linear
+		// transition transform 1s linear, max-width 1s linear, max-heigh 1s linear, top 1s linear, bottom 1s linear, visibility 0.5s linear 0.5s, opacity  0.5s linear 0.5s
+		transition max-height 1s linear, z-index 1s linear
 		img
 			height auto
+			// width 100%
+			// transition width 1s linear
 			
 
 	.left-img
+		max-width 32%
+		max-height 90vh
+		// height 90vh
+		display block
 		top 3vh
 		bottom 3vh
-		z-index 5
-		opacity 1
-		visibility visible
+		left 50%
+		transform: translate(-150%,0)
 		cursor pointer
+		visibility visible
+		opacity 1
+		z-index 5
+		// &.-leftClicked
+		// 	transition visibility 0.5s linear 0.5s, opacity 0.5s linear 0.5s
+		// &.-rightClicked
+		// 	transition visibility 0.5s linear, opacity 0.5s linear
+
 
 	.middle-img
+		max-width 80%
+		max-height 96vh
+		// max-width 32%
+		vertical-align top
+		display block
 		top 0
 		bottom 0
+		left 50%
+		transform: translate(-50%,0)
+		box-shadow 0px 9px 20px 20px rgba(70,51,59,0.66)
 		z-index 10
-		opacity 1
 		visibility visible
-		box-shadow 0 0 15px 15px #46333B
+		opacity 1
 
 	.right-img
+		max-width 32%
+		max-height 90vh
+		display block
 		top 3vh
 		bottom 3vh
-		z-index 5
-		opacity 1
-		visibility visible
+		left 50%
+		transform: translate(50%,0)
 		cursor pointer
+		visibility visible
+		opacity 1
+		z-index 5
+		// &.-leftClicked
+		// 	transition visibility 0.5s linear, opacity 0.5s linear
+		// &.-rightClicked
+		// 	transition visibility 0.5s linear 0.5s, opacity 0.5s linear 0.5s
 			
+
 	.img-display-none
-		top 15vh
-		bottom 15vh
-		z-index 0
-		opacity 0
+		// transform: scale(0.9)
+		left 50%
+		transform: translate(-50%,0)
+		max-width 32%
+		max-height 90vh
 		visibility hidden
+		opacity 0
+		z-index 0
 
 	
 	// .gallery-image__img
