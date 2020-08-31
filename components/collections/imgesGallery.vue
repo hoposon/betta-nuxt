@@ -84,8 +84,8 @@
 		overflow hidden
 		position relative
 		width 100%
-		height 96vh
-		max-height 96vh
+		height 92vh
+		max-height 92vh
 
 	// .left-img
 	// 	display block
