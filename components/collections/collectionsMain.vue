@@ -14,8 +14,8 @@
 				:border='true'
 			/>
 		</div>
-		<div class="d-flex">
-			<button v-for='(coll, index) in collections' :key='index' @click='setCollection(index)' class="link -purple -t30-xlt" :class="buttonClass(index)">{{coll.collectionName}}</button>
+		<div class="collection-headings d-flex">
+			<button v-for='(coll, index) in collections' :key='index' @click='setCollection(index)' class="col-heading link -purple" :class="buttonClass(index)">{{coll.collectionName}}</button>
 		</div>
 		<imagesGallery :images='collections[currentIndex].images' />
 		<div style='height:200px'></div>
@@ -47,9 +47,14 @@
 		methods: {
 			buttonClass(index) {
 				// console.log('>>>', index)
-				return {
-					'-active': index == this.currentIndex
+				if (index !== this.currentIndex) {
+					return '-t30-xlt';
+				} else {
+					return '-active -t40-xlt';
 				}
+				// return {
+				// 	'-active': index == this.currentIndex
+				// }
 			},
 			setCollection(index) {
 				this.currentIndex = index;
@@ -68,8 +73,15 @@
 		margin-top 150px
 		margin-bottom 150px
 
-	.link
-		&.-active
-			font-weight bold
+	.collection-headings
+		margin-bottom 50px
+		.col-heading
+			padding-right 20px
+		.col-heading:last-child
+			padding-right 0 !important
+		.col-heading:first-child
+			padding-left 0 !important
+		.-active
+			font-weight bold !important
 
 </style>

@@ -355,10 +355,6 @@
 			display inline-block
 			text-decoration none
 
-		/**font modifiers */
-		.-white
-			color white
-
 		/**modifiers */
 
 		/**widths */
